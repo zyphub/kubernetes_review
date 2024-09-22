@@ -26,6 +26,8 @@ import (
 
 	"github.com/blang/semver/v4"
 	"github.com/spf13/cobra"
+	"k8s.io/klog/v2"
+
 	coordinationv1 "k8s.io/api/coordination/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
@@ -57,7 +59,6 @@ import (
 	"k8s.io/component-base/term"
 	"k8s.io/component-base/version"
 	"k8s.io/component-base/version/verflag"
-	"k8s.io/klog/v2"
 	schedulerserverconfig "k8s.io/kubernetes/cmd/kube-scheduler/app/config"
 	"k8s.io/kubernetes/cmd/kube-scheduler/app/options"
 	kubefeatures "k8s.io/kubernetes/pkg/features"
@@ -398,6 +399,7 @@ func Setup(ctx context.Context, opts *options.Options, outOfTreeRegistryOptions 
 	}
 
 	// Get the completed config
+	// REVIEW: 初始化配置，内部会初始化client、informerFactory、dynInformerFactory等
 	cc := c.Complete()
 
 	outOfTreeRegistry := make(runtime.Registry)
